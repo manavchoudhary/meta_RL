@@ -46,7 +46,7 @@ class agent():
         value_loss = 0.5*tf.reduce_mean(tf.square(self.target_v_flat - self.value_fn))
         policy_loss = -tf.reduce_mean(tf.log(tf.reduce_sum(self.policy*self.action_taken)+1e-9)*self.advantage_flat)
         entropy = -tf.reduce_mean(self.policy*tf.log(self.policy+1e-9))
-        loss = policy_loss + 0.05*value_loss - 0.05*entropy
+        loss = policy_loss + value_loss - 0.05*entropy
         self.loss_summary = tf.summary.scalar('train_loss', loss)
 
         optimizer = tf.train.AdamOptimizer(learning_rate=self.lr, name='adam_opt')
