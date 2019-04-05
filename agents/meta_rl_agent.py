@@ -134,7 +134,7 @@ def train(agent, env):
                 final_state = state
                 a2c_input = np.concatenate((np.array([final_state]), to_one_hot(action, num_actions), np.array([reward]))).reshape((1, -1, input_size))
                 # a2c_input = np.concatenate((np.array([final_time_step]), to_one_hot(action, num_actions), np.array([reward]))).reshape((1, -1, input_size))
-                feed = {agent.input: a2c_input, agent.rnn_hidden_state:hidden_state_val}
+                feed = {agent.input: a2c_input, agent.init_state:hidden_state_val}
                 state_v_val = sess.run([agent.value_fn], feed_dict=feed)
                 state_v_val = state_v_val[0][0]
                 R = state_v_val
