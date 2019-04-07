@@ -155,7 +155,7 @@ def train(agent, env):
 
             rewards_plot.append(np.sum(episode_rewards))
 
-        a2c_input = np.concatenate((np.vstack(task_states).reshape((1, -1, state_size)), np.vstack(task_actions).reshape((1, -1, num_actions)), np.hstack(task_rewards).reshape((1, -1, reward_size))), axis=2)
+        a2c_input = np.concatenate((np.vstack(task_states).reshape((1, -1, state_size)), np.concatenate((np.array([[[1,0]]]), np.vstack(task_actions).reshape((1, -1, num_actions))[:, :-1, :]), axis=1), np.concatenate((np.array([[[0.0]]]), np.hstack(task_rewards).reshape((1, -1, reward_size))[:, :-1, :]), axis=1)), axis=2)
         # a2c_input = np.concatenate((np.vstack(task_time_steps).reshape((1, -1, 1)), np.vstack(task_actions).reshape((1, -1, num_actions)), np.hstack(task_rewards).reshape((1, -1, reward_size))), axis=2)
         task_advantages = np.hstack(task_advantages).reshape((1, -1, 1))
         task_target_v = np.hstack(task_target_v).reshape((1, -1, 1))
