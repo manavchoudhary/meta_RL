@@ -44,7 +44,7 @@ class agent():
         self.value_fn = tf.contrib.layers.fully_connected(self.hidden_1, 1, activation_fn=None,
                                                      weights_initializer = tf.contrib.layers.xavier_initializer(seed=2345),
                                                      biases_initializer= tf.contrib.layers.xavier_initializer(seed=2346), trainable=True)
-        self.policy = tf.nn.softmax(tf.contrib.layers.fully_connected(self.hidden_1, self.action_size, activation_fn=tf.nn.relu,
+        self.policy = tf.nn.softmax(tf.contrib.layers.fully_connected(self.hidden_1, self.action_size, activation_fn=None,
                                                                  weights_initializer = tf.contrib.layers.xavier_initializer(seed=2347),
                                                                  biases_initializer=tf.contrib.layers.xavier_initializer(seed=2348), trainable=True))
 
