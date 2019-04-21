@@ -50,8 +50,9 @@ class agent():
 
         self.target_v_flat = tf.reshape(self.target_v, [-1, 1],)
         self.advantage_flat = tf.reshape(self.advantage, [-1,1])
+        self.action_taken_flat = tf.reshape(self.action_taken, [-1, self.action_size])
         value_loss = 0.5*tf.reduce_mean(tf.square(self.target_v_flat - self.value_fn))
-        policy_loss = -tf.reduce_mean(tf.log(tf.reduce_sum(self.policy*self.action_taken)+1e-9)*self.advantage_flat)
+        policy_loss = -tf.reduce_mean(tf.log(tf.reduce_sum(self.policy*self.action_taken_flat)+1e-9)*self.advantage_flat)
         entropy = -tf.reduce_mean(self.policy*tf.log(self.policy+1e-9))
         loss = policy_loss + value_loss - 0.05*entropy
         self.loss_summary = tf.summary.scalar('train_loss', loss)
